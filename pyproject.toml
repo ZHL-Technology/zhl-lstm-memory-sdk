@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "zhl-memory-core"
+version = "0.2.2"
+description = "Standalone NER and memory envelope core for ZHL robot memory."
+requires-python = ">=3.10"
+readme = "README.md"
+license = {text = "Proprietary"}
+authors = [{name = "ZHL Technology"}]
+
+[tool.setuptools.packages.find]
+include = ["zhl_memory_core*"]
+
+[tool.black]
+line-length = 100
+target-version = ["py310"]
+
+[tool.isort]
+profile = "black"
+line_length = 100
