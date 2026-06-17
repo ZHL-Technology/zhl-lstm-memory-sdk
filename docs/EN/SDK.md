@@ -5,8 +5,10 @@ Current package version: `0.2.2`
 The package-ready core lives in `zhl_memory_core/`. It has no Django dependency and can be installed beside robot code without pulling in the Django dashboard.
 
 ```bash
-pip install git+https://github.com/ZHL-Technology/zhl-lstm-memory-sdk.git@v0.2.2
+pip install git+https://github.com/ZHL-Technology/zhl-lstm-memory-sdk.git
 ```
+
+The install command is intentionally unpinned so developer machines receive the latest SDK by default. Pin a release tag only when a production robot needs a frozen build.
 
 ## Activation Flow
 
@@ -111,7 +113,7 @@ This makes the web sandbox a practical test surface for robot teams before they 
 
 ## Platform Notes
 
-`zhl-memory-core` `0.2.2` is pure Python. Ubuntu, Raspberry Pi OS, and RK3588 boards can use the same package tag today. See [Platform Guide](PLATFORMS.md) for platform-specific install notes and future build policy.
+`zhl-memory-core` is pure Python. Ubuntu, Raspberry Pi OS, and RK3588 boards can use the same public SDK source today. See [Platform Guide](PLATFORMS.md) for platform-specific install notes and future build policy.
 
 ## Cloud Analyze
 

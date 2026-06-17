@@ -5,8 +5,10 @@
 可安装的 SDK 核心位于 `zhl_memory_core/`。它不依赖 Django，可以直接安装在机器人项目旁边。
 
 ```bash
-pip install git+https://github.com/ZHL-Technology/zhl-lstm-memory-sdk.git@v0.2.2
+pip install git+https://github.com/ZHL-Technology/zhl-lstm-memory-sdk.git
 ```
+
+这个安装命令故意不固定 tag，因此开发设备默认会安装最新 SDK。只有生产机器人需要冻结 build 时，才建议指定 release tag。
 
 ## 激活流程
 
@@ -110,4 +112,4 @@ Dashboard Sandbox 使用与 SDK manager 相同的记忆行为：
 
 ## 平台说明
 
-`zhl-memory-core` `0.2.2` 是纯 Python。当前 Ubuntu、Raspberry Pi OS 和 RK3588 设备都可以使用同一个 package tag。平台安装说明和未来构建策略见 [Platform Guide](PLATFORMS.md)。
+`zhl-memory-core` 是 pure Python。当前 Ubuntu、Raspberry Pi OS 和 RK3588 设备都可以使用同一个 public SDK source。平台安装说明和未来构建策略见 [Platform Guide](PLATFORMS.md)。

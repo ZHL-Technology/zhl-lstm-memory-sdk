@@ -2,17 +2,17 @@
 
 Current SDK version: `0.2.2`
 
-`zhl-memory-core` is currently pure Python and does not include native model binaries, GPU kernels, or board-specific compiled extensions. Because of that, the same package tag works across Ubuntu, Raspberry Pi, and RK3588 today.
+`zhl-memory-core` is currently pure Python and does not include native model binaries, GPU kernels, or board-specific compiled extensions. Because of that, the same public Git source works across Ubuntu, Raspberry Pi, and RK3588 today.
 
 Separate platform builds are not required yet. Platform-specific packaging will become necessary if the SDK later includes native acceleration, ONNX Runtime variants, local vector indexes with compiled dependencies, or board-specific NPU support.
 
 ## Recommended Install Matrix
 
-| Platform | Architecture | Package tag | Notes |
+| Platform | Architecture | Install source | Notes |
 | --- | --- | --- | --- |
-| Ubuntu 22.04/24.04 | x86_64 or arm64 | `v0.2.2` | Recommended for cloud-adjacent robot apps and developer laptops. |
-| Raspberry Pi OS 64-bit | arm64 | `v0.2.2` | Use a 64-bit OS and Python 3.10+. Keep local JSON state on persistent storage. |
-| RK3588 Ubuntu/Debian | arm64 | `v0.2.2` | Same pure-Python SDK works now. Future NPU acceleration should use a platform-specific extra or wheel. |
+| Ubuntu 22.04/24.04 | x86_64 or arm64 | latest public Git URL | Recommended for cloud-adjacent robot apps and developer laptops. |
+| Raspberry Pi OS 64-bit | arm64 | latest public Git URL | Use a 64-bit OS and Python 3.10+. Keep local JSON state on persistent storage. |
+| RK3588 Ubuntu/Debian | arm64 | latest public Git URL | Same pure-Python SDK works now. Future NPU acceleration should use a platform-specific extra or wheel. |
 
 ## Ubuntu
 
@@ -20,7 +20,7 @@ Separate platform builds are not required yet. Platform-specific packaging will 
 python3 --version
 python3 -m venv .venv
 .venv/bin/python -m pip install --upgrade pip
-.venv/bin/python -m pip install git+https://github.com/ZHL-Technology/zhl-lstm-memory-sdk.git@v0.2.2
+.venv/bin/python -m pip install git+https://github.com/ZHL-Technology/zhl-lstm-memory-sdk.git
 ```
 
 Smoke test:
@@ -47,7 +47,7 @@ sudo apt update
 sudo apt install -y python3-venv python3-pip git
 python3 -m venv .venv
 .venv/bin/python -m pip install --upgrade pip
-.venv/bin/python -m pip install git+https://github.com/ZHL-Technology/zhl-lstm-memory-sdk.git@v0.2.2
+.venv/bin/python -m pip install git+https://github.com/ZHL-Technology/zhl-lstm-memory-sdk.git
 ```
 
 Recommended local state path:
@@ -67,7 +67,7 @@ sudo apt update
 sudo apt install -y python3-venv python3-pip git
 python3 -m venv .venv
 .venv/bin/python -m pip install --upgrade pip
-.venv/bin/python -m pip install git+https://github.com/ZHL-Technology/zhl-lstm-memory-sdk.git@v0.2.2
+.venv/bin/python -m pip install git+https://github.com/ZHL-Technology/zhl-lstm-memory-sdk.git
 ```
 
 Future RK3588 NPU support should not be mixed into the base package. Use one of these patterns later:

@@ -18,13 +18,15 @@ Choose your language:
 Public HTTPS install:
 
 ```bash
-pip install git+https://github.com/ZHL-Technology/zhl-lstm-memory-sdk.git@v0.2.2
+pip install git+https://github.com/ZHL-Technology/zhl-lstm-memory-sdk.git
 ```
+
+This command intentionally omits a release tag so it installs the latest public SDK.
 
 SSH install for ZHL developers:
 
 ```bash
-pip install git+ssh://git@github.com/ZHL-Technology/zhl-lstm-memory-sdk.git@v0.2.2
+pip install git+ssh://git@github.com/ZHL-Technology/zhl-lstm-memory-sdk.git
 ```
 
 ## Quick Usage

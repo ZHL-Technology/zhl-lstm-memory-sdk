@@ -2,17 +2,17 @@
 
 当前 SDK 版本：`0.2.2`
 
-`zhl-memory-core` 目前是纯 Python，不包含原生模型二进制、GPU kernel 或板卡专用编译扩展。因此现在 Ubuntu、Raspberry Pi 和 RK3588 都可以使用同一个 package tag。
+`zhl-memory-core` 目前是纯 Python，不包含原生模型二进制、GPU kernel 或板卡专用编译扩展。因此现在 Ubuntu、Raspberry Pi 和 RK3588 都可以使用同一个 public Git source。
 
 目前不需要单独平台版本。只有当 SDK 未来加入原生加速、ONNX Runtime 变体、带编译依赖的本地向量索引或板卡 NPU 支持时，才需要平台专用构建。
 
 ## 推荐安装矩阵
 
-| 平台 | 架构 | Package tag | 说明 |
+| 平台 | 架构 | 安装来源 | 说明 |
 | --- | --- | --- | --- |
-| Ubuntu 22.04/24.04 | x86_64 或 arm64 | `v0.2.2` | 适合开发电脑和靠近云端的机器人应用。 |
-| Raspberry Pi OS 64-bit | arm64 | `v0.2.2` | 建议使用 64-bit OS 和 Python 3.10+。本地 JSON state 放在持久化存储中。 |
-| RK3588 Ubuntu/Debian | arm64 | `v0.2.2` | 当前纯 Python SDK 可直接运行。未来 NPU 加速应使用 platform extra 或专用 wheel。 |
+| Ubuntu 22.04/24.04 | x86_64 或 arm64 | 最新 public Git URL | 适合开发电脑和靠近云端的机器人应用。 |
+| Raspberry Pi OS 64-bit | arm64 | 最新 public Git URL | 建议使用 64-bit OS 和 Python 3.10+。本地 JSON state 放在持久化存储中。 |
+| RK3588 Ubuntu/Debian | arm64 | 最新 public Git URL | 当前纯 Python SDK 可直接运行。未来 NPU 加速应使用 platform extra 或专用 wheel。 |
 
 ## Ubuntu
 
@@ -20,7 +20,7 @@
 python3 --version
 python3 -m venv .venv
 .venv/bin/python -m pip install --upgrade pip
-.venv/bin/python -m pip install git+https://github.com/ZHL-Technology/zhl-lstm-memory-sdk.git@v0.2.2
+.venv/bin/python -m pip install git+https://github.com/ZHL-Technology/zhl-lstm-memory-sdk.git
 ```
 
 ## Raspberry Pi
@@ -32,7 +32,7 @@ sudo apt update
 sudo apt install -y python3-venv python3-pip git
 python3 -m venv .venv
 .venv/bin/python -m pip install --upgrade pip
-.venv/bin/python -m pip install git+https://github.com/ZHL-Technology/zhl-lstm-memory-sdk.git@v0.2.2
+.venv/bin/python -m pip install git+https://github.com/ZHL-Technology/zhl-lstm-memory-sdk.git
 ```
 
 推荐本地 state 路径：
@@ -52,7 +52,7 @@ sudo apt update
 sudo apt install -y python3-venv python3-pip git
 python3 -m venv .venv
 .venv/bin/python -m pip install --upgrade pip
-.venv/bin/python -m pip install git+https://github.com/ZHL-Technology/zhl-lstm-memory-sdk.git@v0.2.2
+.venv/bin/python -m pip install git+https://github.com/ZHL-Technology/zhl-lstm-memory-sdk.git
 ```
 
 未来如果加入 RK3588 NPU 支持，不建议放进 base package。可以使用：
