@@ -1,8 +1,8 @@
 # Platform Guide
 
-Current SDK version: `0.2.2`
+Current SDK version: `0.2.3`
 
-`zhl-memory-core` is currently pure Python and does not include native model binaries, GPU kernels, or board-specific compiled extensions. Because of that, the same public Git source works across Ubuntu, Raspberry Pi, and RK3588 today.
+`zhl-memory-core` currently keeps the same Python API across platforms and does not include native model binaries, GPU kernels, or board-specific compiled extensions. Local encrypted storage depends on the standard `cryptography` package. Because of that, the same public Git source works across Ubuntu, Raspberry Pi, and RK3588 today.
 
 Separate platform builds are not required yet. Platform-specific packaging will become necessary if the SDK later includes native acceleration, ONNX Runtime variants, local vector indexes with compiled dependencies, or board-specific NPU support.
 
@@ -12,7 +12,7 @@ Separate platform builds are not required yet. Platform-specific packaging will 
 | --- | --- | --- | --- |
 | Ubuntu 22.04/24.04 | x86_64 or arm64 | latest public Git URL | Recommended for cloud-adjacent robot apps and developer laptops. |
 | Raspberry Pi OS 64-bit | arm64 | latest public Git URL | Use a 64-bit OS and Python 3.10+. Keep local JSON state on persistent storage. |
-| RK3588 Ubuntu/Debian | arm64 | latest public Git URL | Same pure-Python SDK works now. Future NPU acceleration should use a platform-specific extra or wheel. |
+| RK3588 Ubuntu/Debian | arm64 | latest public Git URL | Same SDK source works now. Future NPU acceleration should use a platform-specific extra or wheel. |
 
 ## Ubuntu
 
@@ -58,9 +58,18 @@ from zhl_memory_core import MemoryManager
 memory = MemoryManager(path="/var/lib/zhl-memory/robot-memory.json")
 ```
 
+For encrypted local state:
+
+```python
+memory = MemoryManager(
+    path="/var/lib/zhl-memory/short-term-memory.enc",
+    encryption_key="load-this-from-the-robot-secure-store",
+)
+```
+
 ## RK3588
 
-For RK3588 boards running Ubuntu or Debian arm64, the current pure-Python SDK installs the same way:
+For RK3588 boards running Ubuntu or Debian arm64, the current SDK installs the same way:
 
 ```bash
 sudo apt update
@@ -78,6 +87,6 @@ Future RK3588 NPU support should not be mixed into the base package. Use one of 
 
 ## Version Policy
 
-Use the same project version for the Python SDK across all supported platforms while the package remains pure Python.
+Use the same project version for the Python SDK across all supported platforms while the package keeps one shared Python API.
 
 When native platform builds become necessary, keep the Python API stable and publish platform variants from the same source tag.

@@ -1,6 +1,6 @@
 # ZHL Memory SDK Core
 
-Current package version: `0.2.2`
+Current package version: `0.2.3`
 
 The package-ready core lives in `zhl_memory_core/`. It has no Django dependency and can be installed beside robot code without pulling in the Django dashboard.
 
@@ -37,7 +37,7 @@ Content-Type: application/json
   "api_key": "zhlsk_...",
   "device_id": "robot-serial-001",
   "device_name": "Robot 001",
-  "sdk_version": "0.2.2",
+  "sdk_version": "0.2.3",
   "platform": "linux"
 }
 ```
@@ -80,6 +80,19 @@ updated = memory.process("That was not real. Replace it with Bob.")
 print(updated.memory_json)
 ```
 
+For production robots, encrypt the local state file with a device secret or key material from your robot secure store:
+
+```python
+from zhl_memory_core import MemoryManager
+
+memory = MemoryManager(
+    path="/var/lib/zhl-memory/short-term-memory.enc",
+    encryption_key="load-this-from-the-robot-secure-store",
+)
+```
+
+The encrypted file starts with `zhlmem1:` and does not contain readable names, preferences, health data, or memories. If an encrypted file is opened without `encryption_key`, the SDK raises a clear error instead of resetting the state.
+
 Single-value identity facts such as `first_name`, `last_name`, `age`, and `birth_date` are not silently duplicated when a different value appears later. The manager asks for confirmation first. If the user says they have two names or wants to keep both, both values stay current. If the user confirms replacement, the old memory is archived and removed from the active memory JSON.
 
 ### Conflict Behavior
@@ -113,7 +126,7 @@ This makes the web sandbox a practical test surface for robot teams before they 
 
 ## Platform Notes
 
-`zhl-memory-core` is pure Python. Ubuntu, Raspberry Pi OS, and RK3588 boards can use the same public SDK source today. See [Platform Guide](PLATFORMS.md) for platform-specific install notes and future build policy.
+`zhl-memory-core` keeps the same Python API on Ubuntu, Raspberry Pi OS, and RK3588 boards. Local encrypted storage uses the `cryptography` package. See [Platform Guide](PLATFORMS.md) for platform-specific install notes and future build policy.
 
 ## Cloud Analyze
 

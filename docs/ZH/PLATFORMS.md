@@ -1,8 +1,8 @@
 # 平台指南
 
-当前 SDK 版本：`0.2.2`
+当前 SDK 版本：`0.2.3`
 
-`zhl-memory-core` 目前是纯 Python，不包含原生模型二进制、GPU kernel 或板卡专用编译扩展。因此现在 Ubuntu、Raspberry Pi 和 RK3588 都可以使用同一个 public Git source。
+`zhl-memory-core` 目前在各平台保持同一个 Python API，不包含原生模型二进制、GPU kernel 或板卡专用编译扩展。本地加密存储依赖标准 `cryptography` package。因此现在 Ubuntu、Raspberry Pi 和 RK3588 都可以使用同一个 public Git source。
 
 目前不需要单独平台版本。只有当 SDK 未来加入原生加速、ONNX Runtime 变体、带编译依赖的本地向量索引或板卡 NPU 支持时，才需要平台专用构建。
 
@@ -41,6 +41,15 @@ python3 -m venv .venv
 from zhl_memory_core import MemoryManager
 
 memory = MemoryManager(path="/var/lib/zhl-memory/robot-memory.json")
+```
+
+加密本地 state：
+
+```python
+memory = MemoryManager(
+    path="/var/lib/zhl-memory/short-term-memory.enc",
+    encryption_key="load-this-from-the-robot-secure-store",
+)
 ```
 
 ## RK3588

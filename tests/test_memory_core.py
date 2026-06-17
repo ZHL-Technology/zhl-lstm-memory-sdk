@@ -7,7 +7,7 @@ from zhl_memory_core import MemoryEngine, MemoryManager, __version__
 
 class MemoryCoreTests(unittest.TestCase):
     def test_version(self):
-        self.assertEqual(__version__, "0.2.2")
+        self.assertEqual(__version__, "0.2.3")
 
     def test_core_extracts_private_and_medical_facts(self):
         result = MemoryEngine().analyze("My name is Sara. My favorite color is blue. I take aspirin.")
@@ -77,6 +77,35 @@ class MemoryCoreTests(unittest.TestCase):
             ]
 
         self.assertEqual(current_names, ["Sara"])
+
+    def test_memory_manager_can_encrypt_local_state(self):
+        with tempfile.TemporaryDirectory() as tempdir:
+            path = Path(tempdir) / "memory.enc"
+            manager = MemoryManager(path=path, encryption_key="robot-device-secret")
+            manager.process("My name is Sara.", language="en")
+
+            raw_payload = path.read_text(encoding="utf-8")
+            restored = MemoryManager(path=path, encryption_key="robot-device-secret")
+            current_names = [
+                fact["value_text"]
+                for fact in restored.current_facts()
+                if fact["key"] == "first_name"
+            ]
+
+        self.assertTrue(raw_payload.startswith("zhlmem1:"))
+        self.assertNotIn("Sara", raw_payload)
+        self.assertEqual(current_names, ["Sara"])
+
+    def test_encrypted_local_state_requires_key(self):
+        with tempfile.TemporaryDirectory() as tempdir:
+            path = Path(tempdir) / "memory.enc"
+            MemoryManager(path=path, encryption_key="robot-device-secret").process(
+                "My name is Sara.",
+                language="en",
+            )
+
+            with self.assertRaises(RuntimeError):
+                MemoryManager(path=path)
 
 
 if __name__ == "__main__":

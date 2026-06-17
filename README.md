@@ -2,7 +2,7 @@
 
 Standalone Python SDK for ZHL robot memory extraction, local managed memory, conflict handling, and cloud memory API integration.
 
-Current package version: `0.2.2`
+Current package version: `0.2.3`
 
 Repository: `https://github.com/ZHL-Technology/zhl-lstm-memory-sdk`
 
@@ -34,7 +34,10 @@ pip install git+ssh://git@github.com/ZHL-Technology/zhl-lstm-memory-sdk.git
 ```python
 from zhl_memory_core import MemoryManager
 
-memory = MemoryManager(path="./robot-memory.json")
+memory = MemoryManager(
+    path="./robot-memory.enc",
+    encryption_key="load-this-from-the-robot-secure-store",
+)
 result = memory.process("My name is Sara. My favorite color is blue.")
 
 print(result.memory_json)

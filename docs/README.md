@@ -1,6 +1,6 @@
 # ZHL LSTM Memory SDK Documentation
 
-Current SDK package version: `0.2.2`
+Current SDK package version: `0.2.3`
 
 Choose a language:
 

@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.3 - 2026-06-17
+
+- Added encrypted local memory state support for `MemoryManager`.
+- Added `cryptography` as the SDK storage encryption dependency.
+- Documented robot-side short-term memory encryption.
+
 ## 0.2.2 - 2026-06-16
 
 - Published the standalone SDK in the public `zhl-lstm-memory-sdk` repository.

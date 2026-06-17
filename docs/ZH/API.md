@@ -1,6 +1,6 @@
 # API Guide
 
-当前 SDK package 版本：`0.2.2`
+当前 SDK package 版本：`0.2.3`
 
 Base path：`/api/v1/`
 
@@ -54,7 +54,7 @@ Content-Type: application/json
   "api_key": "zhlsk_...",
   "device_id": "robot-serial-001",
   "device_name": "Robot 001",
-  "sdk_version": "0.2.2",
+  "sdk_version": "0.2.3",
   "platform": "linux"
 }
 ```

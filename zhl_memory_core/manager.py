@@ -1,4 +1,3 @@
-import json
 import uuid
 from copy import deepcopy
 from dataclasses import dataclass, field
@@ -6,6 +5,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+from .crypto import dump_state, load_state
 from .engine import MemoryEngine
 
 
@@ -122,8 +122,9 @@ def resolution_intent(message):
 
 
 class MemoryManager:
-    def __init__(self, path=None, state=None, default_language=""):
+    def __init__(self, path=None, state=None, default_language="", encryption_key=None):
         self.path = Path(path) if path else None
+        self.encryption_key = encryption_key
         self.engine = MemoryEngine(default_language=default_language)
         self.state = deepcopy(state) if state is not None else self._load_state()
 
@@ -198,8 +199,8 @@ class MemoryManager:
         if not self.path or not self.path.exists():
             return self._default_state()
         try:
-            state = json.loads(self.path.read_text(encoding="utf-8"))
-        except json.JSONDecodeError:
+            state = load_state(self.path.read_text(encoding="utf-8"), self.encryption_key)
+        except ValueError:
             return self._default_state()
         return {
             "memories": list(state.get("memories", [])),
@@ -211,7 +212,7 @@ class MemoryManager:
         if not self.path:
             return
         self.path.parent.mkdir(parents=True, exist_ok=True)
-        self.path.write_text(json.dumps(self.state, ensure_ascii=False, indent=2), encoding="utf-8")
+        self.path.write_text(dump_state(self.state, self.encryption_key), encoding="utf-8")
 
     def _split_conflicts(self, memories):
         safe_memories = []

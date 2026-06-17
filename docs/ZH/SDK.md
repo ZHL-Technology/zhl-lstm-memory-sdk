@@ -1,6 +1,6 @@
 # ZHL Memory SDK Core 中文说明
 
-当前 package 版本：`0.2.2`
+当前 package 版本：`0.2.3`
 
 可安装的 SDK 核心位于 `zhl_memory_core/`。它不依赖 Django，可以直接安装在机器人项目旁边。
 
@@ -37,7 +37,7 @@ Content-Type: application/json
   "api_key": "zhlsk_...",
   "device_id": "robot-serial-001",
   "device_name": "Robot 001",
-  "sdk_version": "0.2.2",
+  "sdk_version": "0.2.3",
   "platform": "linux"
 }
 ```
@@ -81,6 +81,19 @@ updated = memory.process("That was not real. Replace it with Bob.")
 print(updated.memory_json)
 ```
 
+生产机器人建议使用设备密钥或机器人安全存储中的 key material 加密本地 state 文件：
+
+```python
+from zhl_memory_core import MemoryManager
+
+memory = MemoryManager(
+    path="/var/lib/zhl-memory/short-term-memory.enc",
+    encryption_key="load-this-from-the-robot-secure-store",
+)
+```
+
+加密文件会以 `zhlmem1:` 开头，不会包含可直接读取的姓名、偏好、健康信息或记忆内容。如果打开加密文件时没有提供 `encryption_key`，SDK 会抛出明确错误，而不是重置 state。
+
 ## 冲突处理
 
 `MemoryManager` 将以下字段视为单值身份信息：
@@ -112,4 +125,4 @@ Dashboard Sandbox 使用与 SDK manager 相同的记忆行为：
 
 ## 平台说明
 
-`zhl-memory-core` 是 pure Python。当前 Ubuntu、Raspberry Pi OS 和 RK3588 设备都可以使用同一个 public SDK source。平台安装说明和未来构建策略见 [Platform Guide](PLATFORMS.md)。
+`zhl-memory-core` 在 Ubuntu、Raspberry Pi OS 和 RK3588 上保持同一个 Python API。本地加密存储使用 `cryptography` package。平台安装说明和未来构建策略见 [Platform Guide](PLATFORMS.md)。

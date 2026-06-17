@@ -11,7 +11,7 @@ class MemoryClientError(RuntimeError):
 
 
 class MemoryClient:
-    def __init__(self, base_url, api_key, device_id, device_name="", sdk_version="0.2.2"):
+    def __init__(self, base_url, api_key, device_id, device_name="", sdk_version="0.2.3"):
         self.base_url = base_url.rstrip("/")
         self.api_key = api_key
         self.device_id = device_id
