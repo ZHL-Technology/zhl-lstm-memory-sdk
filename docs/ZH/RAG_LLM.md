@@ -44,11 +44,15 @@ Content-Type: application/json
 
 响应包含 `rag_mode`、`facts`、`memories` 和 `prompt_context`。
 
-## 大模型边界
+## 大模型交付边界
 
-当前 public SDK 不直接调用大模型。这是有意设计：不同机器人可能接入不同云端模型、本地私有模型或未来 ZHL fine-tuned model。
+当前已请求并交付的范围是短期记忆和长期记忆服务，不是聊天大模型。SDK 可以运行在贵司 STT 之后、贵司现有 LLM/对话系统之前，或作为贵司 LLM 输出后的记忆处理链路。
 
-Private platform 已经加入默认关闭的 OpenAI-compatible provider adapter。只要模型服务提供 `/v1/chat/completions`，就可以通过平台配置接入。
+当前 public SDK 不直接调用大模型。它负责提取值得记住的信息、在对话期间管理本地短期状态，并把确认后的记忆同步到云端。贵司现有 LLM 仍然负责自然语言对话。
+
+Private platform 已经加入默认关闭的 OpenAI-compatible provider adapter。这个 adapter 是贵司现有 LLM 或其他兼容模型服务的标准集成点，不代表当前交付 LLM。
+
+如果贵司后续希望替换付费 LLM 服务，可以单独评估基于 Qwen 2.5 的可选本地 package，用于 RK3588 上的中文 native 和英文对话。该路线可以基于免费/开源模型，不产生外部 LLM API 调用费用。如果 Qwen 2.5 过重，可以选择更小或量化版本。该可选 package 不属于当前记忆服务范围。
 
 真实 LLM credential 必须放在环境变量或 secret manager 中，不能写入机器人代码或 Git。
 

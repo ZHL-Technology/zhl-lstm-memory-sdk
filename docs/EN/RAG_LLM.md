@@ -44,11 +44,15 @@ Content-Type: application/json
 
 The response includes `rag_mode`, `facts`, `memories`, and `prompt_context`.
 
-## LLM Boundary
+## LLM Delivery Boundary
 
-The current public SDK does not call an LLM directly. This is intentional: different robots may use different cloud models, local private models, or future ZHL fine-tuned models.
+The requested and delivered scope is a short-term and long-term memory service, not a chat LLM. The SDK can run after the customer's STT and before the customer's existing LLM/dialogue system, or as a memory-processing layer after the customer's LLM output.
 
-The private platform now includes a disabled-by-default OpenAI-compatible provider adapter. Any model service that exposes `/v1/chat/completions` can be connected through the platform configuration.
+The current public SDK does not call an LLM directly. It extracts memory-worthy information, manages short-term local state during the conversation, and syncs confirmed memory to the cloud. The customer's existing LLM remains responsible for natural-language conversation.
+
+The private platform includes a disabled-by-default OpenAI-compatible provider adapter. This is a standard integration point for the customer's existing LLM or another compatible model service; it is not an LLM delivery commitment.
+
+If the customer later wants help replacing a paid LLM service, a separate optional Qwen 2.5 package can be evaluated for native Chinese/English use on RK3588. This path can be based on free/open-source models and does not create external LLM API usage fees. If Qwen 2.5 is too heavy, a smaller or quantized variant can be selected. That optional package is outside the current memory-service scope.
 
 Real LLM credentials must be stored in environment variables or a secret manager, not in robot code or Git.
 
