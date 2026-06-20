@@ -10,8 +10,10 @@ Repository: `https://github.com/ZHL-Technology/zhl-lstm-memory-sdk`
 
 Choose your language:
 
-- [English Documentation](docs/EN/README.md)
-- [中文文档](docs/ZH/README.md)
+- [English Documentation](docs/EN/SDK.md)
+- [中文文档](docs/ZH/SDK.md)
+- [RAG And LLM Integration Notes](docs/EN/RAG_LLM.md)
+- [RAG 与大模型集成说明](docs/ZH/RAG_LLM.md)
 
 ## Quick Install
 

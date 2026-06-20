@@ -121,6 +121,24 @@ GET /api/v1/memories/facts/?key=favorite_color
 Authorization: Bearer zhla_...
 ```
 
+## RAG Context
+
+Cloud platform `0.2.6` adds an owner-scoped context endpoint for chat-model integrations. It returns current facts, relevant memories, and a `prompt_context` string that can be sent to an OpenAI-compatible or private chat model.
+
+```http
+POST /api/v1/memories/rag-context/
+Authorization: Bearer zhla_...
+Content-Type: application/json
+
+{
+  "query": "favorite color and bedtime story preferences",
+  "limit": 8,
+  "include_facts": true
+}
+```
+
+RAG retrieval is always scoped to the authenticated owner before memory search.
+
 ## Content Library
 
 ```http

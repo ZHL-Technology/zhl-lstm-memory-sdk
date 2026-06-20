@@ -121,6 +121,24 @@ GET /api/v1/memories/facts/?key=favorite_color
 Authorization: Bearer zhla_...
 ```
 
+## RAG Context
+
+云端平台 `0.2.6` 增加了 owner-scoped context endpoint，用于聊天模型集成。它会返回 current facts、相关 memories，以及可以发送给 OpenAI-compatible 或私有聊天模型的 `prompt_context` 字符串。
+
+```http
+POST /api/v1/memories/rag-context/
+Authorization: Bearer zhla_...
+Content-Type: application/json
+
+{
+  "query": "favorite color and bedtime story preferences",
+  "limit": 8,
+  "include_facts": true
+}
+```
+
+RAG 召回始终先按当前认证 owner 过滤，然后再做记忆搜索。
+
 ## 内容库
 
 ```http
