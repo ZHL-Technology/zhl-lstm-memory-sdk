@@ -1,6 +1,6 @@
 # API Guide
 
-当前 SDK package 版本：`0.2.3`
+当前 SDK package 版本：`0.2.4`
 
 Base path：`/api/v1/`
 
@@ -54,7 +54,7 @@ Content-Type: application/json
   "api_key": "zhlsk_...",
   "device_id": "robot-serial-001",
   "device_name": "Robot 001",
-  "sdk_version": "0.2.3",
+  "sdk_version": "0.2.4",
   "platform": "linux"
 }
 ```
@@ -123,7 +123,7 @@ Authorization: Bearer zhla_...
 
 ## RAG Context
 
-云端平台 `0.2.7` 增加了 owner-scoped context endpoint，用于聊天模型集成。它会返回 current facts、相关 memories，以及可以发送给 OpenAI-compatible 或私有聊天模型的 `prompt_context` 字符串。
+云端平台 `0.2.8` 增加了 owner-scoped context endpoint，用于聊天模型集成。它会返回 current facts、相关 memories，以及可以发送给 OpenAI-compatible 或私有聊天模型的 `prompt_context` 字符串。
 
 ```http
 POST /api/v1/memories/rag-context/

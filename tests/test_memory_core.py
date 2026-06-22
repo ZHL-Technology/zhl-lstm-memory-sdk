@@ -1,13 +1,33 @@
+import io
+import json
+import os
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
+from urllib.error import HTTPError
 
 from zhl_memory_core import MemoryEngine, MemoryManager, __version__
+from zhl_memory_core.client import MemoryClient, MemoryClientError
+
+
+class FakeHttpResponse:
+    def __init__(self, payload):
+        self.payload = payload
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc, traceback):
+        return False
+
+    def read(self):
+        return json.dumps(self.payload).encode("utf-8")
 
 
 class MemoryCoreTests(unittest.TestCase):
     def test_version(self):
-        self.assertEqual(__version__, "0.2.3")
+        self.assertEqual(__version__, "0.2.4")
 
     def test_core_extracts_private_and_medical_facts(self):
         result = MemoryEngine().analyze("My name is Sara. My favorite color is blue. I take aspirin.")
@@ -106,6 +126,109 @@ class MemoryCoreTests(unittest.TestCase):
 
             with self.assertRaises(RuntimeError):
                 MemoryManager(path=path)
+
+
+class MemoryClientTests(unittest.TestCase):
+    def test_activate_sends_user_agent_and_timeout(self):
+        calls = []
+
+        def fake_urlopen(request, timeout):
+            calls.append((request, timeout))
+            return FakeHttpResponse({"status": "active", "activation_token": "zhla_test_token"})
+
+        client = MemoryClient(
+            base_url="https://memory.example.com",
+            api_key="zhlsk_test_key",
+            device_id="robot-001",
+            user_agent="RobotTest/1.0",
+            timeout=7,
+        )
+
+        with patch("urllib.request.urlopen", fake_urlopen):
+            client.activate()
+
+        headers = {name.lower(): value for name, value in calls[0][0].header_items()}
+        self.assertEqual(headers["user-agent"], "RobotTest/1.0")
+        self.assertEqual(calls[0][1], 7)
+
+    def test_env_overrides_user_agent_and_timeout(self):
+        calls = []
+
+        def fake_urlopen(request, timeout):
+            calls.append((request, timeout))
+            return FakeHttpResponse({"status": "active", "activation_token": "zhla_test_token"})
+
+        with patch.dict(
+            os.environ,
+            {
+                "ZHL_MEMORY_USER_AGENT": "EnvRobot/2.0",
+                "ZHL_MEMORY_HTTP_TIMEOUT_S": "9",
+            },
+        ):
+            client = MemoryClient(
+                base_url="https://memory.example.com",
+                api_key="zhlsk_test_key",
+                device_id="robot-001",
+            )
+
+        with patch("urllib.request.urlopen", fake_urlopen):
+            client.activate()
+
+        headers = {name.lower(): value for name, value in calls[0][0].header_items()}
+        self.assertEqual(headers["user-agent"], "EnvRobot/2.0")
+        self.assertEqual(calls[0][1], 9)
+
+    def test_ingest_uses_existing_activation_token(self):
+        calls = []
+
+        def fake_urlopen(request, timeout):
+            calls.append(request)
+            return FakeHttpResponse({"created": 1, "memories": []})
+
+        client = MemoryClient(
+            base_url="https://memory.example.com",
+            api_key="zhlsk_test_key",
+            device_id="robot-001",
+            user_agent="RobotTest/1.0",
+        )
+        client.activation_token = "zhla_existing_token"
+
+        with patch("urllib.request.urlopen", fake_urlopen):
+            client.ingest("My favorite color is blue.", language="en")
+
+        headers = {name.lower(): value for name, value in calls[0].header_items()}
+        self.assertEqual(len(calls), 1)
+        self.assertEqual(headers["authorization"], "Bearer zhla_existing_token")
+        self.assertEqual(headers["user-agent"], "RobotTest/1.0")
+
+    def test_http_errors_redact_api_key_and_activation_token(self):
+        def fake_urlopen(request, timeout):
+            raise HTTPError(
+                request.full_url,
+                403,
+                "Forbidden",
+                hdrs=None,
+                fp=io.BytesIO(
+                    b"bad zhlsk_secret_value zhla_secret_token Authorization: Bearer zhla_header_token"
+                ),
+            )
+
+        client = MemoryClient(
+            base_url="https://memory.example.com",
+            api_key="zhlsk_secret_value",
+            device_id="robot-001",
+        )
+
+        with patch("urllib.request.urlopen", fake_urlopen):
+            with self.assertRaises(MemoryClientError) as error:
+                client.activate()
+
+        message = str(error.exception)
+        self.assertEqual(error.exception.status_code, 403)
+        self.assertNotIn("zhlsk_secret_value", message)
+        self.assertNotIn("zhla_secret_token", message)
+        self.assertNotIn("zhla_header_token", message)
+        self.assertIn("[REDACTED]", message)
 
 
 if __name__ == "__main__":

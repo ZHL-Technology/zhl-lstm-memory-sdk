@@ -1,6 +1,6 @@
 # 平台指南
 
-当前 SDK 版本：`0.2.3`
+当前 SDK 版本：`0.2.4`
 
 `zhl-memory-core` 目前在各平台保持同一个 Python API，不包含原生模型二进制、GPU kernel 或板卡专用编译扩展。本地加密存储依赖标准 `cryptography` package。因此现在 Ubuntu、Raspberry Pi 和 RK3588 都可以使用同一个 public Git source。
 

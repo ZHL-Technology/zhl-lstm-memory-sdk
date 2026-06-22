@@ -1,6 +1,6 @@
 # ZHL Memory SDK Core
 
-Current package version: `0.2.3`
+Current package version: `0.2.4`
 
 The package-ready core lives in `zhl_memory_core/`. It has no Django dependency and can be installed beside robot code without pulling in the Django dashboard.
 
@@ -37,7 +37,7 @@ Content-Type: application/json
   "api_key": "zhlsk_...",
   "device_id": "robot-serial-001",
   "device_name": "Robot 001",
-  "sdk_version": "0.2.3",
+  "sdk_version": "0.2.4",
   "platform": "linux"
 }
 ```
@@ -47,6 +47,18 @@ Content-Type: application/json
 ```http
 Authorization: Bearer zhla_...
 ```
+
+For headless robot runtimes, SDK `0.2.4` sends a non-browser `User-Agent` on all
+cloud API calls so API traffic is not confused with browser traffic by edge
+security rules. The defaults can be overridden when needed:
+
+```bash
+export ZHL_MEMORY_USER_AGENT="zhl-memory-core/0.2.4 OODI-X01"
+export ZHL_MEMORY_HTTP_TIMEOUT_S=12
+```
+
+The SDK redacts `zhlsk_...` API keys and `zhla_...` activation tokens from HTTP
+error messages before raising `MemoryClientError`.
 
 ## Local NER
 

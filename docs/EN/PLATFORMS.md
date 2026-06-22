@@ -1,6 +1,6 @@
 # Platform Guide
 
-Current SDK version: `0.2.3`
+Current SDK version: `0.2.4`
 
 `zhl-memory-core` currently keeps the same Python API across platforms and does not include native model binaries, GPU kernels, or board-specific compiled extensions. Local encrypted storage depends on the standard `cryptography` package. Because of that, the same public Git source works across Ubuntu, Raspberry Pi, and RK3588 today.
 

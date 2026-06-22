@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.2.4 - 2026-06-22
+
+- Added a default SDK User-Agent for headless robot API calls.
+- Added `ZHL_MEMORY_USER_AGENT` and `ZHL_MEMORY_HTTP_TIMEOUT_S` overrides.
+- Reduced default SDK HTTP timeout for robot runtimes.
+- Redacted SDK API keys and activation tokens from HTTP error messages.
+
 ## 0.2.3 - 2026-06-17
 
 - Added encrypted local memory state support for `MemoryManager`.

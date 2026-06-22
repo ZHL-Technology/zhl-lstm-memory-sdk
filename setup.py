@@ -3,7 +3,7 @@ from setuptools import find_packages, setup
 
 setup(
     name="zhl-memory-core",
-    version="0.2.3",
+    version="0.2.4",
     description="Standalone NER and memory envelope core for ZHL robot memory.",
     long_description=open("README.md", encoding="utf-8").read(),
     long_description_content_type="text/markdown",

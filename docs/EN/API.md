@@ -1,6 +1,6 @@
 # API Guide
 
-Current SDK package version: `0.2.3`
+Current SDK package version: `0.2.4`
 
 Base path: `/api/v1/`
 
@@ -54,7 +54,7 @@ Content-Type: application/json
   "api_key": "zhlsk_...",
   "device_id": "robot-serial-001",
   "device_name": "Robot 001",
-  "sdk_version": "0.2.3",
+  "sdk_version": "0.2.4",
   "platform": "linux"
 }
 ```
@@ -123,7 +123,7 @@ Authorization: Bearer zhla_...
 
 ## RAG Context
 
-Cloud platform `0.2.7` adds an owner-scoped context endpoint for chat-model integrations. It returns current facts, relevant memories, and a `prompt_context` string that can be sent to an OpenAI-compatible or private chat model.
+Cloud platform `0.2.8` adds an owner-scoped context endpoint for chat-model integrations. It returns current facts, relevant memories, and a `prompt_context` string that can be sent to an OpenAI-compatible or private chat model.
 
 ```http
 POST /api/v1/memories/rag-context/

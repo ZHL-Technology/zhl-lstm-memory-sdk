@@ -1,6 +1,6 @@
 # ZHL Memory SDK Core 中文说明
 
-当前 package 版本：`0.2.3`
+当前 package 版本：`0.2.4`
 
 可安装的 SDK 核心位于 `zhl_memory_core/`。它不依赖 Django，可以直接安装在机器人项目旁边。
 
@@ -37,7 +37,7 @@ Content-Type: application/json
   "api_key": "zhlsk_...",
   "device_id": "robot-serial-001",
   "device_name": "Robot 001",
-  "sdk_version": "0.2.3",
+  "sdk_version": "0.2.4",
   "platform": "linux"
 }
 ```
@@ -47,6 +47,17 @@ Content-Type: application/json
 ```http
 Authorization: Bearer zhla_...
 ```
+
+对于无浏览器的机器人运行环境，SDK `0.2.4` 会在所有云端 API 请求中发送非浏览器
+`User-Agent`，避免边缘安全规则把 Python SDK 请求误判为浏览器异常流量。需要时可以覆盖默认值：
+
+```bash
+export ZHL_MEMORY_USER_AGENT="zhl-memory-core/0.2.4 OODI-X01"
+export ZHL_MEMORY_HTTP_TIMEOUT_S=12
+```
+
+SDK 在抛出 `MemoryClientError` 前，会从 HTTP 错误信息中隐藏 `zhlsk_...` API Key
+和 `zhla_...` activation token，避免 secret 出现在日志或测试输出中。
 
 ## 本地 NER
 
