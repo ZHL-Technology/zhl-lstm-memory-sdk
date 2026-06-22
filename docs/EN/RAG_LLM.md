@@ -28,7 +28,7 @@ Recommended flow:
 4. The platform builds a prompt-ready memory context.
 5. A chat LLM receives that memory context and answers the user.
 
-The cloud platform version `0.2.6` exposes this boundary through:
+The cloud platform version `0.2.7` exposes this boundary through:
 
 ```http
 POST https://memory.zhlaistudio.com/api/v1/memories/rag-context/

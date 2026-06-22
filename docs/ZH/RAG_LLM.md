@@ -28,7 +28,7 @@ ZHL LSTM Memory 推荐把 RAG 作为 owner-scoped 记忆上方的召回层，而
 4. 平台构建 prompt-ready memory context。
 5. 聊天大模型接收该 memory context 后回答用户。
 
-云端平台 `0.2.6` 已经通过以下接口暴露这个边界：
+云端平台 `0.2.7` 已经通过以下接口暴露这个边界：
 
 ```http
 POST https://memory.zhlaistudio.com/api/v1/memories/rag-context/

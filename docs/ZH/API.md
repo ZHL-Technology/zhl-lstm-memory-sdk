@@ -123,7 +123,7 @@ Authorization: Bearer zhla_...
 
 ## RAG Context
 
-云端平台 `0.2.6` 增加了 owner-scoped context endpoint，用于聊天模型集成。它会返回 current facts、相关 memories，以及可以发送给 OpenAI-compatible 或私有聊天模型的 `prompt_context` 字符串。
+云端平台 `0.2.7` 增加了 owner-scoped context endpoint，用于聊天模型集成。它会返回 current facts、相关 memories，以及可以发送给 OpenAI-compatible 或私有聊天模型的 `prompt_context` 字符串。
 
 ```http
 POST /api/v1/memories/rag-context/
