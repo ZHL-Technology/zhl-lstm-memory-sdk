@@ -52,7 +52,10 @@ The current public SDK does not call an LLM directly. It extracts memory-worthy 
 
 The private platform includes a disabled-by-default OpenAI-compatible provider adapter. This is a standard integration point for the customer's existing LLM or another compatible model service; it is not an LLM delivery commitment.
 
-If the customer later wants help replacing a paid LLM service, a separate optional Qwen 2.5 package can be evaluated for native Chinese/English use on RK3588. This path can be based on free/open-source models and does not create external LLM API usage fees. If Qwen 2.5 is too heavy, a smaller or quantized variant can be selected. That optional package is outside the current memory-service scope.
+The next product target is a complete English/Chinese robot AI runtime SDK that
+adds a Vosk ASR bundle, a local Qwen-family LLM profile, and high-level memory +
+RAG + LLM orchestration. See [Full English/Chinese Robot AI Stack Contract](FULL_ROBOT_STACK.md).
+Persian is not part of the current language scope.
 
 Real LLM credentials must be stored in environment variables or a secret manager, not in robot code or Git.
 

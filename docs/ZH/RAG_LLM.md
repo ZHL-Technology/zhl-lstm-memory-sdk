@@ -52,7 +52,9 @@ Content-Type: application/json
 
 Private platform 已经加入默认关闭的 OpenAI-compatible provider adapter。这个 adapter 是贵司现有 LLM 或其他兼容模型服务的标准集成点，不代表当前交付 LLM。
 
-如果贵司后续希望替换付费 LLM 服务，可以单独评估基于 Qwen 2.5 的可选本地 package，用于 RK3588 上的中文 native 和英文对话。该路线可以基于免费/开源模型，不产生外部 LLM API 调用费用。如果 Qwen 2.5 过重，可以选择更小或量化版本。该可选 package 不属于当前记忆服务范围。
+下一阶段产品目标是完整英文/中文机器人 AI runtime SDK，加入 Vosk ASR bundle、本地
+Qwen-family LLM profile，以及 high-level memory + RAG + LLM orchestration。
+详见 [英文/中文完整机器人 AI Stack 交付约定](FULL_ROBOT_STACK.md)。波斯语不属于当前语言范围。
 
 真实 LLM credential 必须放在环境变量或 secret manager 中，不能写入机器人代码或 Git。
 

@@ -12,8 +12,18 @@ Choose your language:
 
 - [English Documentation](docs/EN/SDK.md)
 - [中文文档](docs/ZH/SDK.md)
+- [Full English/Chinese Robot AI Stack Contract](docs/EN/FULL_ROBOT_STACK.md)
+- [英文/中文完整机器人 AI Stack 交付约定](docs/ZH/FULL_ROBOT_STACK.md)
 - [RAG And LLM Integration Notes](docs/EN/RAG_LLM.md)
 - [RAG 与大模型集成说明](docs/ZH/RAG_LLM.md)
+
+## Product Direction
+
+Version `0.2.4` is the memory and platform-sync foundation. It does not yet
+bundle ASR or a chat LLM. The next product target is a complete English/Chinese
+robot AI runtime SDK with Vosk ASR, a local English/Chinese LLM profile, local
+memory, platform activation/sync, and RAG context wiring. Persian is not in the
+current language scope.
 
 ## Quick Install
 
