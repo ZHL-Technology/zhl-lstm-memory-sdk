@@ -20,10 +20,11 @@ Choose your language:
 ## Product Direction
 
 Version `0.2.4` is the memory and platform-sync foundation. It does not yet
-bundle ASR or a chat LLM. The next product target is a complete English/Chinese
-robot AI runtime SDK with Vosk ASR, a local English/Chinese LLM profile, local
-memory, platform activation/sync, and RAG context wiring. Persian is not in the
-current language scope.
+bundle ASR or a chat LLM. The next product target is to package and stabilize
+the existing OODI-X01 English/Chinese runtime work, not to start a new LLM from
+scratch: Vosk ASR, local Qwen-family LLM profiles, local memory, platform
+activation/sync, and RAG context wiring. Persian is not in the current language
+scope.
 
 ## Quick Install
 

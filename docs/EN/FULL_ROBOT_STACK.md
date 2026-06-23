@@ -4,8 +4,13 @@ Current SDK package version: `0.2.4`
 
 This document defines the target package shape for the next delivery phase.
 The current public repository is a memory SDK. The required product is a
-downloadable robot AI runtime SDK that keeps voice recognition, local LLM,
-memory, and cloud platform sync aligned.
+downloadable robot AI runtime SDK that packages and stabilizes the existing
+OODI-X01 English/Chinese runtime work: voice recognition, local LLM, memory,
+and cloud platform sync.
+
+This is not a request to build a new LLM from scratch. The reference
+implementation already exists in the OODI-X01 robot repository and should be
+extracted, cleaned up, tested, and packaged for SDK developers.
 
 ## Language Scope
 
@@ -120,6 +125,26 @@ qwen2.5-1.5b-instruct-q4_k_m.gguf  # balanced profile
 
 The package should support a local OpenAI-compatible endpoint, such as
 `llama-server`, and should also allow a compatible remote/private endpoint.
+
+Reference OODI-X01 behavior to preserve:
+
+```text
+llama-server OpenAI-compatible local endpoint
+Qwen2.5 GGUF model profiles: fast/small/balanced/quality
+strict English-in-English and Chinese-in-Chinese reply policy
+short child-safe answers
+memory context inserted as additional runtime system context
+cloud sync runs outside the critical chat latency path
+```
+
+Known stabilization work from OODI-X01:
+
+```text
+Vosk English and Chinese recognizers can run at the same time.
+The Chinese recognizer can hallucinate short Chinese fragments from English audio.
+The arbitration layer must reject low-confidence cross-language transcripts.
+The LLM prompt/postprocess must reject language mixing instead of speaking the wrong language.
+```
 
 Recommended command shape:
 
@@ -315,4 +340,3 @@ high-level Memory + RAG + LLM orchestration helper
 
 Those items should be implemented before calling the repository a complete
 robot AI runtime SDK.
-

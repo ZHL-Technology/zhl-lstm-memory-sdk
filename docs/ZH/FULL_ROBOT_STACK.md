@@ -3,8 +3,12 @@
 当前 SDK package 版本：`0.2.4`
 
 本文定义下一阶段的目标 package 形态。当前 public repository 是记忆 SDK。
-下一阶段需要交付的是可下载、可 bootstrap 的机器人 AI runtime SDK，让语音识别、
-本地大模型、记忆和云端平台同步保持一致。
+下一阶段需要交付的是可下载、可 bootstrap 的机器人 AI runtime SDK，把现有
+OODI-X01 英文/中文 runtime 工作打包并稳定下来：语音识别、本地大模型、记忆和
+云端平台同步。
+
+这不是要求从零开始训练或重做一个新的 LLM。参考实现已经在 OODI-X01 robot
+repository 中存在，下一步应该是 extraction、cleanup、testing 和 packaging。
 
 ## 语言范围
 
@@ -112,6 +116,26 @@ qwen2.5-1.5b-instruct-q4_k_m.gguf  # balanced profile
 
 package 应支持本地 OpenAI-compatible endpoint，例如 `llama-server`，也应允许兼容的
 remote/private endpoint。
+
+需要保留的 OODI-X01 参考行为：
+
+```text
+llama-server OpenAI-compatible local endpoint
+Qwen2.5 GGUF model profiles: fast/small/balanced/quality
+strict English-in-English and Chinese-in-Chinese reply policy
+short child-safe answers
+memory context inserted as additional runtime system context
+cloud sync runs outside the critical chat latency path
+```
+
+来自 OODI-X01 的已知稳定性工作：
+
+```text
+Vosk English 和 Chinese recognizers 会同时运行。
+Chinese recognizer 可能从 English audio hallucinate 短中文片段。
+arbitration layer 必须拒绝低置信度 cross-language transcripts。
+LLM prompt/postprocess 必须拒绝 language mixing，而不是用错误语言说话。
+```
 
 建议命令：
 
@@ -302,4 +326,3 @@ high-level Memory + RAG + LLM orchestration helper
 ```
 
 在这些内容完成之前，不能把 repository 称为完整 robot AI runtime SDK。
-

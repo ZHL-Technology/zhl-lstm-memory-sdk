@@ -52,10 +52,12 @@ The current public SDK does not call an LLM directly. It extracts memory-worthy 
 
 The private platform includes a disabled-by-default OpenAI-compatible provider adapter. This is a standard integration point for the customer's existing LLM or another compatible model service; it is not an LLM delivery commitment.
 
-The next product target is a complete English/Chinese robot AI runtime SDK that
-adds a Vosk ASR bundle, a local Qwen-family LLM profile, and high-level memory +
-RAG + LLM orchestration. See [Full English/Chinese Robot AI Stack Contract](FULL_ROBOT_STACK.md).
-Persian is not part of the current language scope.
+The next product target is to package and stabilize the existing OODI-X01
+English/Chinese runtime into a complete robot AI runtime SDK: Vosk ASR,
+Qwen-family local LLM profiles, and high-level memory + RAG + LLM
+orchestration. This is not a request to build a new LLM from scratch. See
+[Full English/Chinese Robot AI Stack Contract](FULL_ROBOT_STACK.md). Persian is
+not part of the current language scope.
 
 Real LLM credentials must be stored in environment variables or a secret manager, not in robot code or Git.
 
